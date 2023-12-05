@@ -1,4 +1,3 @@
-// app.js
 require('dotenv').config();
 const express = require('express');
 const universityRoutes = require('./src/routes/universityRoutes');

@@ -11,11 +11,11 @@ const FacultyController = {
     }
   },
 
-  // Fungsi untuk mendapatkan fakultas berdasarkan nama
-  getFacultyByName: async (req, res) => {
+  // Fungsi untuk mendapatkan fakultas berdasarkan id
+  getFacultyById: async (req, res) => {
     try {
-      const { name } = req.params;
-      const faculty = await FacultyModel.getFacultyByName(name);
+      const { id } = req.params;
+      const faculty = await FacultyModel.getFacultyById(id);
 
       if (faculty) {
         res.json(faculty);

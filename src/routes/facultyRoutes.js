@@ -6,7 +6,7 @@ const FacultyController = require('../controller/facultyController');
 router.get('/faculties', FacultyController.getAllFaculties);
 
 // Rute untuk mendapatkan fakultas berdasarkan nama
-router.get('/:name', FacultyController.getFacultyByName);
+router.get('/faculties/:id', FacultyController.getFacultyById);
 
 
 module.exports = router;

@@ -14,9 +14,9 @@ const FacultyModel = {
   },
 
   // Fungsi untuk mendapatkan fakultas berdasarkan nama
-  getFacultyByName: (name) => {
+  getFacultyById: (id) => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM faculty_name WHERE name = ?', [name], (err, results) => {
+      db.query('SELECT * FROM faculty_id WHERE id = ?', [id], (err, results) => {
         if (err) {
           reject(err);
         }
