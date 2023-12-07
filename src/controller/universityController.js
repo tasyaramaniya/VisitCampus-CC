@@ -1,4 +1,4 @@
-const UniversityModel = require("../models/universityModel");
+const UniversityModel = require('../models/universityModel');
 
 const UniversityController = {
   getAllUniversities: async (req, res) => {
@@ -6,7 +6,7 @@ const UniversityController = {
       const universities = await UniversityModel.getAllUniversities();
       res.json(universities);
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: 'Internal server error' });
     }
   },
 
@@ -15,16 +15,15 @@ const UniversityController = {
       const { id } = req.params;
       const university = await UniversityModel.getUniversityById(id);
 
-      if (university) {
-        res.json(university);
+      if (!university) {
+        res.status(404).json({ message: 'University not found' });
       } else {
-        res.status(404).json({ message: 'Universitas tidak ditemukan' });
+        res.json(university);
       }
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
     }
   },
-
 };
 
 module.exports = UniversityController;
