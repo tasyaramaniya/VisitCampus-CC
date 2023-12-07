@@ -14,7 +14,7 @@ const UniversityModel = {
 
   getUniversityById: (id) => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM universities WHERE id = ?', [id], (err, results) => {
+      db.query('SELECT * FROM university WHERE university_id = ?', [id], (err, results) => {
         if (err) {
           reject(err);
         }
