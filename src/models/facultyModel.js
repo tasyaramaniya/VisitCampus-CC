@@ -1,9 +1,10 @@
+// alumniModel.js
 const db = require('../config/database');
 
-const FacultyModel = {
-  getAllFaculties: () => {
+const AlumniModel = {
+  getAllAlumniProfiles: () => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM faculty', (err, results) => {
+      db.query('SELECT * FROM alumnus', (err, results) => {
         if (err) {
           reject(err);
         }
@@ -12,9 +13,9 @@ const FacultyModel = {
     });
   },
 
-  getFacultiesByUniversityId: (universityId) => {
+  getAllAlumniProfilesByUniversityId: (universityId) => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM faculty WHERE university_id = ?', [universityId], (err, results) => {
+      db.query('SELECT * FROM alumnus WHERE university_id = ?', [universityId], (err, results) => {
         if (err) {
           reject(err);
         }
@@ -24,4 +25,4 @@ const FacultyModel = {
   },
 };
 
-module.exports = FacultyModel;
+module.exports = AlumniModel;
