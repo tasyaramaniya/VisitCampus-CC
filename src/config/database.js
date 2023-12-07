@@ -2,10 +2,10 @@ const mysql = require("mysql");
 
 // Konfigurasi koneksi ke database
 const db = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USERNAME,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  host: '127.0.0.1',
+  user: 'root',
+  password: '',
+  database: 'visitcampus-db',
 });
 
 // Buat koneksi
