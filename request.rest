@@ -1,0 +1,15 @@
+###
+GET http://localhost:3000/exams
+
+###
+GET http://localhost:3000/exams/870101/questions
+
+###
+GET http://localhost:3000/exams/results
+
+###
+GET http://localhost:3000/universities
+
+###
+GET http://localhost:3000/registration
+

@@ -3,7 +3,7 @@ const db = require('../config/database');
 const RegistrationPathModel = {
   getAllRegistrationPaths: () => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM registration', (err, results) => {
+      db.query('SELECT * FROM `registration-path`', (err, results) => {
         if (err) {
           reject(err);
         }
@@ -14,7 +14,7 @@ const RegistrationPathModel = {
 
   getRegistrationPathsByUniversityId: (universityId) => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM registration WHERE university_id = ?', [universityId], (err, results) => {
+      db.query('SELECT * FROM `registration-path` WHERE university_id = ?', [universityId], (err, results) => {
         if (err) {
           reject(err);
         }
