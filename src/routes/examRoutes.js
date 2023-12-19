@@ -6,6 +6,6 @@ router.get('/', examController.getAllPracticeExams);
 
 router.get('/:practiceId/questions', examController.getPracticeExamQuestions);
 
-router.get('/results', examController.getExamResults);
+router.get('/:practiceId/results', examController.getExamResults);
 
 module.exports = router;

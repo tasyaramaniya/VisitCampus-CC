@@ -28,7 +28,8 @@ exports.getPracticeExamQuestions = (req, res) => {
 };
 
 exports.getExamResults = (req, res) => {
-  examModel.getExamResults((err, result) => {
+  const practiceId = req.params.practiceId;
+  examModel.getExamResults(practiceId, (err, result) => {
     if (err) {
       console.error('Error querying database: ' + err.message);
       res.status(500).send('Error querying database');

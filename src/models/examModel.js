@@ -14,9 +14,9 @@ const getPracticeExamQuestions = (practiceId, callback) => {
   });
 };
 
-const getExamResults = (callback) => {
-  const query = 'SELECT * FROM `result exam`';
-  db.query(query, (err, result) => {
+const getExamResults = (practiceId, callback) => {
+  const query = 'SELECT * FROM `result exam` WHERE practice_id = ?';
+  db.query(query, [practiceId], (err, result) => {
     callback(err, result);
   });
 };

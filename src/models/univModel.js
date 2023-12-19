@@ -14,6 +14,21 @@ const getAllUniversities = () => {
   });
 };
 
+const getUniversityById = (universityId) => {
+  const query = "SELECT * FROM university WHERE university_id = ?";
+  return new Promise((resolve, reject) => {
+    db.query(query, [universityId], (err, result) => {
+      if (err) {
+        console.error("Error fetching university by ID:", err);
+        reject(err);
+      } else {
+        const university = result[0];
+        resolve(university);
+      }
+    });
+  });
+};
+
 const getUniversityAchievements = (universityId) => {
   const query =
     "SELECT * FROM `achievement-university` WHERE university_id = ?";
@@ -161,8 +176,10 @@ const getUniversitiesByFilters = (filters) => {
     );
   });
 };
+
 module.exports = {
   getAllUniversities,
+  getUniversityById,
   getUniversityAchievements,
   getAlumniProfiles,
   getRegistrationPaths,
