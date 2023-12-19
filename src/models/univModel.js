@@ -35,8 +35,6 @@ const getUniversityAchievements = (universityId) => {
   });
 };
 
-// Update other functions in a similar manner
-
 const getAlumniProfiles = (universityId) => {
   const query = "SELECT * FROM `profile-alumnus` WHERE university_id = ?";
   return new Promise((resolve, reject) => {
@@ -121,6 +119,48 @@ const getMajors = (facultyId) => {
   });
 };
 
+const getUniversitiesByFilters = (filters) => {
+  const {
+    type_univ,
+    accreditation_univ,
+    scope,
+    major_name,
+    accreditation_major,
+  } = filters;
+
+  const query = `
+    SELECT
+      u.*,
+      u.accreditation_univ,
+      f.faculty_name,
+      m.major_name,
+      m.accreditation_major
+    FROM university u
+    LEFT JOIN faculty f ON u.university_id = f.university_id
+    LEFT JOIN major m ON f.faculty_id = m.faculty_id
+    WHERE
+      u.type_univ = ? AND
+      u.accreditation_univ = ? AND
+      f.scope = ? AND
+      m.major_name = ? AND
+      m.accreditation_major = ?
+  `;
+
+  return new Promise((resolve, reject) => {
+    db.query(
+      query,
+      [type_univ, accreditation_univ, scope, major_name, accreditation_major],
+      (err, result) => {
+        if (err) {
+          console.error("Error fetching universities by filters:", err);
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
 module.exports = {
   getAllUniversities,
   getUniversityAchievements,
@@ -128,4 +168,5 @@ module.exports = {
   getRegistrationPaths,
   getFaculties,
   getMajors,
+  getUniversitiesByFilters,
 };

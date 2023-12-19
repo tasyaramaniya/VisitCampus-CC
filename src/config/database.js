@@ -3,9 +3,9 @@ const mysql = require("mysql");
 // Konfigurasi koneksi ke database
 const db = mysql.createPool({
   connectionLimit: 10,
-  host: '127.0.0.1',
+  host: '34.128.96.38',
   user: 'root',
-  password: '',
+  password: 'bukanappbiasavc',
   database: 'visitcampus-db',
 });
 
