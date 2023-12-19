@@ -1,39 +1,46 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User } = require('../models/user');
-const { validationResult } = require('express-validator');
+const User = require('../models/user');
 
-const registerUser = async (req, res) => {
-  try {
+const secretKey = 'yourSecretKey'; // Ganti dengan kunci rahasia yang kuat
+
+const UserController = {
+  registerUser: async (req, res) => {
     const { name, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
-    res.status(201).json({ message: 'User created successfully', user });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
-const loginUser = async (req, res) => {
-  try {
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      User.createUser(name, email, hashedPassword, (err) => {
+        if (err) {
+          res.status(500).json({ error: 'Internal server error' });
+        } else {
+          res.status(201).json({ message: 'User registered successfully' });
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+
+  loginUser: (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) {
-      return res.status(401).json({ message: 'Invalid password' });
-    }
-    const accessToken = jwt.sign({ email: user.email, id: user.id }, 'yourSecretKey');
-    res.status(200).json({ accessToken });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+
+    User.getUserByEmail(email, async (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Internal server error' });
+      } else if (results.length === 0) {
+        res.status(401).json({ error: 'Email or password is incorrect' });
+      } else {
+        const match = await bcrypt.compare(password, results[0].password);
+        if (match) {
+          const token = jwt.sign({ userId: results[0].id }, secretKey, { expiresIn: '1h' });
+          res.status(200).json({ message: 'Login successful', token });
+        } else {
+          res.status(401).json({ error: 'Email or password is incorrect' });
+        }
+      }
+    });
+  },
 };
 
-module.exports = { registerUser, loginUser };
+module.exports = UserController;
