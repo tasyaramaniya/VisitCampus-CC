@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/User');
 
 const secretKey = 'yourSecretKey'; // Ganti dengan kunci rahasia yang kuat
 
@@ -33,8 +33,19 @@ const UserController = {
       } else {
         const match = await bcrypt.compare(password, results[0].password);
         if (match) {
-          const token = jwt.sign({ userId: results[0].id }, secretKey, { expiresIn: '1h' });
-          res.status(200).json({ message: 'Login successful', token });
+          const userId = results[0].id;
+          const userEmail = results[0].email;
+          const userName = results[0].name;
+
+          // Membuat token JWT
+          const token = jwt.sign({ userId, userEmail, userName }, secretKey, { expiresIn: '1h' });
+
+          res.status(200).json({
+            accessToken: token,
+            userId,
+            email: userEmail,
+            name: userName,
+          });
         } else {
           res.status(401).json({ error: 'Email or password is incorrect' });
         }
