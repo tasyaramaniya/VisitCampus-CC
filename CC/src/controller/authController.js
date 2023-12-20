@@ -12,7 +12,7 @@ const UserController = {
       const hashedPassword = await bcrypt.hash(password, 10);
       User.createUser(name, email, hashedPassword, (err, newUser) => {
         if (err) {
-          res.status(500).json({ error: 'Internal server error' });
+          res.status(500).json({ error: 'Email is already registered' });
         } else {
           const { createdAt, updatedAt } = newUser; 
           res.status(201).json({

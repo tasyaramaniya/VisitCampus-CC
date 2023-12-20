@@ -2,7 +2,7 @@
 GET http://localhost:3000/exams
 
 ###
-GET http://localhost:3000/exams/870102/questions
+GET http://localhost:3000/exams/870101/questions
 
 ###
 GET http://localhost:3000/exams/870101/results
@@ -11,7 +11,7 @@ GET http://localhost:3000/exams/870101/results
 GET http://localhost:3000/universities
 
 ###
-GET http://localhost:3000/universities/100105
+GET http://localhost:3000/universities/100107
 
 ###
 GET http://localhost:3000/registration
@@ -27,8 +27,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "name": "Pram",
-  "email": "pramudhita@gmail.com",
+  "name": "lily",
+  "email": "lily7@gmail.com",
   "password": "neomuyeppo"
 }
 
@@ -37,6 +37,6 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "pramudhita@gmail.com",
+  "email": "lily7@gmail.com",
   "password": "neomuyeppo"
 }
